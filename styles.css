@@ -1,0 +1,860 @@
+/* ========================================
+   CSS CUSTOM PROPERTIES (VARIABLES)
+   ======================================== */
+
+:root {
+  /* Color Palette */
+  --sky-dark-top: #000010;
+  --sky-dark-bottom: #001a33;
+  --sky-light-top: #87CEEB;
+  --sky-light-bottom: #ADD8E6;
+  
+  --sea-dark-top: #001f3f;
+  --sea-dark-bottom: #003366;
+  --sea-light-top: #3498db;
+  --sea-light-bottom: #5dade2;
+  
+  --shore-dark: #3a2d0f;
+  --shore-light: #F5DEB3;
+  
+  --text-dark: #cccccc;
+  --text-light: #003366;
+  
+  --glow-dark-1: #00e6e6;
+  --glow-dark-2: #00ccff;
+  --wave-dark: #1a4f8a;
+  --wave-light: #5dade2;
+  
+  --moon-color: #f0f0e0;
+  --star-color: #ffffff;
+  --sun-color: #FFD700;
+  --sun-glow: rgba(255, 215, 0, 0.5);
+  
+  /* Animation Timings */
+  --transition-speed: 0.6s;
+  --wave-duration: 10s;
+  --beam-rotation: 30s;
+  --name-glow: 3s;
+}
+
+/* ========================================
+   GLOBAL RESET & BASE STYLES
+   ======================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(to bottom, var(--sky-dark-top) 60%, var(--sky-dark-bottom) 100%);
+  color: var(--text-dark);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
+  animation: sceneFadeIn 2.5s ease-out forwards;
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+
+@keyframes sceneFadeIn {
+  0% { opacity: 0; filter: brightness(0) saturate(0); transform: scale(0.95); }
+  25% { filter: brightness(0.5) saturate(0.5); }
+  100% { opacity: 1; filter: brightness(1) saturate(1); transform: scale(1); }
+}
+
+@keyframes enhancedTwinkle {
+  0%, 100% { opacity: 0.2; transform: scale(0.8); }
+  50% { opacity: var(--star-opacity, 1); transform: scale(1.2); }
+}
+
+@keyframes enhancedShooting {
+  0% { opacity: 0; transform: rotate(var(--shooting-angle, -45deg)) translateX(-100px); }
+  5%, 15% { opacity: 1; }
+  25% { opacity: 0; transform: rotate(var(--shooting-angle, -45deg)) translateX(400px); }
+  100% { opacity: 0; }
+}
+
+@keyframes cloudDrift {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100vw); }
+}
+
+@keyframes beamRotate {
+  0% { transform: rotate(-20deg); }
+  50% { transform: rotate(20deg); }
+  100% { transform: rotate(-20deg); }
+}
+
+@keyframes beamPulse {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes emergencyBeamRotate {
+  0% { transform: rotate(-35deg); }
+  25% { transform: rotate(15deg); }
+  50% { transform: rotate(35deg); }
+  75% { transform: rotate(-15deg); }
+  100% { transform: rotate(-35deg); }
+}
+
+@keyframes emergencyBeamPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes emergencyFlash {
+  0% { background-color: #ff4444; box-shadow: 0 0 40px 20px rgba(255, 68, 68, 0.9); }
+  100% { background-color: #ff6666; box-shadow: 0 0 60px 30px rgba(255, 102, 102, 1); }
+}
+
+@keyframes lanternPulse {
+  0%, 100% { box-shadow: 0 0 25px 12px rgba(255, 221, 68, 0.5); }
+  50% { box-shadow: 0 0 35px 18px rgba(255, 221, 68, 0.7); }
+}
+
+@keyframes glow {
+  0% { text-shadow: 0 0 5px #fff; }
+  100% { text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px var(--glow-dark-1); }
+}
+
+@keyframes wave {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes elementEntrance {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Professional click feedback animation */
+@keyframes professionalClick {
+  0% { transform: translateY(0); filter: brightness(1); }
+  50% { transform: translateY(2px); filter: brightness(1.1); }
+  100% { transform: translateY(0); filter: brightness(1); }
+}
+
+/* Mode switching indicator */
+@keyframes modeSwitch {
+  0% { box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2); }
+  50% { box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.3), 0 0 20px rgba(255, 255, 255, 0.2); }
+  100% { box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2); }
+}
+
+/* ========================================
+   SKY & CELESTIAL ELEMENTS
+   ======================================== */
+
+.sky-elements {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60%;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.star, .enhanced-star {
+  position: absolute;
+  background: var(--star-color);
+  border-radius: 50%;
+  animation: enhancedTwinkle var(--twinkle-duration, 3s) infinite var(--twinkle-delay, 0s);
+  transition: opacity 0.5s ease;
+  will-change: opacity, transform;
+}
+
+.bright-star {
+  filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.8));
+}
+
+.pulsing-star {
+  animation-duration: 1.5s;
+}
+
+.shooting-star, .enhanced-shooting-star {
+  position: absolute;
+  width: 120px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 1), transparent);
+  animation: enhancedShooting var(--shooting-duration, 6s) linear infinite var(--shooting-delay, 0s);
+  opacity: 0;
+}
+
+.cloud {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  filter: blur(20px);
+  opacity: 0.4;
+  animation: cloudDrift linear infinite;
+}
+
+.celestial-body {
+  position: absolute;
+  top: 15%;
+  left: 15%;
+  border-radius: 50%;
+  transition: opacity var(--transition-speed) ease, transform var(--transition-speed) ease;
+  transform: scale(0.8) translateY(20px);
+  opacity: 0;
+}
+
+#sun {
+  width: 60px;
+  height: 60px;
+  background-color: var(--sun-color);
+  box-shadow: 0 0 30px 15px var(--sun-glow);
+}
+
+#moon {
+  width: 50px;
+  height: 50px;
+  background-color: var(--moon-color);
+  box-shadow: inset -10px 2px 0 rgba(0, 0, 0, 0.1), 0 0 20px 5px rgba(240, 240, 224, 0.3);
+}
+
+/* ========================================
+   BIRDS & DYNAMIC ELEMENTS
+   ======================================== */
+
+.birds-container {
+  position: absolute;
+  top: 10%;
+  width: 100%;
+  height: 20%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.bird-flock {
+  position: absolute;
+  transition: opacity var(--transition-speed) ease;
+}
+
+.day-birds { opacity: 0; }
+.night-birds { opacity: 1; filter: brightness(0.7); }
+
+.dynamic-lighting {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+              rgba(255, 255, 255, 0.1) 0%, transparent 80%);
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* ========================================
+   WATER & SHORE
+   ======================================== */
+
+.sea {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 30%;
+  background: linear-gradient(to bottom, var(--sea-dark-top) 0%, var(--sea-dark-bottom) 100%);
+  z-index: 1;
+  transition: background var(--transition-speed) ease;
+}
+
+.shore {
+  position: absolute;
+  bottom: 28%;
+  width: 100%;
+  height: 12%;
+  background: var(--shore-dark);
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  z-index: 2;
+  transition: background var(--transition-speed) ease;
+}
+
+.reflection {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 20%;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+  transform-origin: bottom;
+  transform: scaleY(-1);
+  filter: blur(1px);
+  opacity: 0.4;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+.waves-container {
+  position: absolute;
+  bottom: 17%;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  z-index: 4;
+  overflow: hidden;
+}
+
+.wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background-repeat: repeat-x;
+  transition: background-image var(--transition-speed) ease;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.wave1 {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 28"><path d="M0,14 Q30,0 60,14 T120,14 V28 H0 Z" fill="%23ffffff" opacity="0.3"/></svg>');
+  background-size: 120px 28px;
+  animation: wave 17s linear infinite;
+  z-index: 3;
+  bottom: 10px;
+}
+
+.wave2 {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20"><path d="M0,10 Q25,0 50,10 T100,10 V20 H0 Z" fill="%23ffffff" opacity="0.2"/></svg>');
+  background-size: 100px 20px;
+  animation: wave 13s linear infinite;
+  animation-delay: -1s;
+  z-index: 2;
+  bottom: 5px;
+}
+
+.wave3 {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 15"><path d="M0,7.5 Q20,0 40,7.5 T80,7.5 V15 H0 Z" fill="%23ffffff" opacity="0.1"/></svg>');
+  background-size: 80px 15px;
+  animation: wave 11s linear infinite;
+  animation-delay: -2s;
+  z-index: 1;
+  bottom: 0;
+}
+
+/* ========================================
+   LIGHTHOUSE STRUCTURE - PROFESSIONAL
+   ======================================== */
+
+.lighthouse-container {
+  position: absolute;
+  bottom: 38%;
+  left: 25%;
+  z-index: 3;
+  transition: bottom 0.3s ease;
+}
+
+.lighthouse-base {
+  width: 70px;
+  height: 20px;
+  background-color: #666;
+  border-radius: 5px 5px 0 0;
+  margin: 0 auto;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* CLEAN LIGHTHOUSE INTERACTION */
+.lighthouse {
+  width: 50px;
+  height: 160px;
+  background: repeating-linear-gradient(#d13a3a 0px, #d13a3a 25px, #f5f9fb 25px, #f5f9fb 50px);
+  margin: 0 auto;
+  position: relative;
+  clip-path: polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%);
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+/* Subtle professional hover - just cursor and slight brightness */
+ 
+
+/* Professional click feedback */
+ 
+/* Clean mode switching feedback */
+.lighthouse.mode-switching {
+  animation: modeSwitch 0.6s ease;
+}
+
+/* Mode indicators - subtle border colors */
+.lighthouse.mode-normal {
+  border-color: rgba(255, 255, 160, 0.3);
+}
+
+.lighthouse.mode-emergency {
+  border-color: rgba(255, 68, 68, 0.5);
+}
+
+.lighthouse.mode-off {
+  border-color: rgba(100, 100, 100, 0.3);
+  filter: brightness(0.8);
+}
+
+/* Emergency mode lighthouse body */
+.lighthouse-emergency {
+  background: repeating-linear-gradient(#cc0000 0px, #cc0000 25px, #ffdddd 25px, #ffdddd 50px) !important;
+}
+
+.window {
+  position: absolute;
+  width: 10px;
+  height: 18px;
+  background-color: #333;
+  border: 1px solid #555;
+  border-radius: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.4);
+  transition: background-color 0.3s ease;
+}
+
+/* Windows light up in emergency mode */
+.lighthouse-emergency .window {
+  background-color: #ff4444;
+  box-shadow: 0 0 5px rgba(255, 68, 68, 0.5);
+}
+
+.window1 { top: 40px; }
+.window2 { top: 95px; }
+
+.lighthouse-top {
+  width: 65px;
+  height: 15px;
+  background-color: #555;
+  margin: 0 auto;
+  position: relative;
+  top: -1px;
+  border-radius: 3px;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.lighthouse-roof {
+  width: 60px;
+  height: 25px;
+  background-color: #d13a3a;
+  margin: 0 auto;
+  position: relative;
+  top: -1px;
+  border-radius: 50% 50% 0 0 / 15px 15px 0 0;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* CLEAN LANTERN INTERACTION */
+.lantern {
+  width: 35px;
+  height: 35px;
+  background-color: #ffdd44;
+  border: 3px solid #444;
+  border-radius: 50%;
+  position: absolute;
+  top: -27px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 25px 12px rgba(255, 221, 68, 0.6);
+  z-index: 4;
+  animation: lanternPulse 3s infinite ease-in-out;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Professional lantern hover - just brightness */
+.lantern:hover {
+  filter: brightness(1.1);
+}
+
+.lantern:active {
+  animation: professionalClick 0.2s ease;
+}
+
+/* ========================================
+   LIGHTHOUSE MODES - PROFESSIONAL
+   ======================================== */
+
+/* Normal Moving Mode */
+.light-beam.beam-moving {
+  animation: beamRotate 15s infinite ease-in-out, beamPulse 8s infinite;
+  opacity: 0.9;
+  filter: blur(3px);
+  background: radial-gradient(ellipse at top,
+    rgba(255, 255, 220, 0.6) 0%,
+    rgba(255, 255, 160, 0.3) 30%,
+    rgba(255, 255, 160, 0.1) 60%,
+    rgba(255, 255, 160, 0) 80%);
+}
+
+/* Emergency Mode */
+.light-beam.beam-emergency {
+  animation: emergencyBeamRotate 1.5s infinite ease-in-out, emergencyBeamPulse 0.8s infinite;
+  opacity: 1;
+  filter: blur(5px);
+  background: radial-gradient(ellipse at top,
+    rgba(255, 68, 68, 0.8) 0%,
+    rgba(255, 68, 68, 0.5) 30%,
+    rgba(255, 68, 68, 0.3) 60%,
+    rgba(255, 68, 68, 0) 80%) !important;
+}
+
+.lantern.emergency-mode {
+  background-color: #ff4444 !important;
+  box-shadow: 0 0 40px 20px rgba(255, 68, 68, 0.9) !important;
+  animation: emergencyFlash 0.4s infinite alternate !important;
+  border-color: #aa0000 !important;
+}
+
+/* Light Off Mode */
+.light-beam.beam-off {
+  opacity: 0 !important;
+  animation: none !important;
+  transition: opacity 0.8s ease-out;
+}
+
+.lantern.beam-off-mode {
+  background-color: #333333 !important;
+  box-shadow: 0 0 5px 2px rgba(100, 100, 100, 0.3) !important;
+  animation: none !important;
+  border-color: #555555 !important;
+}
+
+/* ========================================
+   ENHANCED LIGHTHOUSE BEAM
+   ======================================== */
+
+.light-beam {
+  position: absolute;
+  bottom: -135px;
+  left: 50%;
+  width: 520px;
+  height: 380px;
+  background: radial-gradient(ellipse at top,
+    rgba(255, 255, 220, 0.6) 0%,
+    rgba(255, 255, 160, 0.3) 30%,
+    rgba(255, 255, 160, 0.1) 60%,
+    rgba(255, 255, 160, 0) 80%);
+  clip-path: polygon(50% 0%, 85% 100%, 15% 100%);
+  transform-origin: center top;
+  margin-left: -260px;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.9;
+  filter: blur(3px);
+  transition: all 0.5s ease-in-out;
+  will-change: transform;
+  backface-visibility: hidden;
+  animation: beamRotate 15s infinite ease-in-out, beamPulse 8s infinite;
+}
+
+/* ========================================
+   USER INTERFACE
+   ======================================== */
+
+.name-header {
+  position: absolute;
+  font-size: clamp(2rem, 8vw, 4.5rem);
+  font-weight: bold;
+  color: var(--text-dark);
+  text-shadow: 0 0 2px rgba(255, 255, 255, 0.3);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  text-align: center;
+  z-index: 5;
+  transition: color var(--transition-speed) ease, text-shadow var(--transition-speed) ease;
+}
+
+.nav {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10;
+  display: flex;
+  gap: 25px;
+}
+
+.nav a {
+  color: var(--text-dark);
+  text-decoration: none;
+  font-size: 1.3rem;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  position: relative;
+  padding: 0.5rem 0;
+}
+
+.nav a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--glow-dark-2);
+  transition: width 0.3s ease-in-out;
+}
+
+.nav a:hover::after { width: 100%; }
+.nav a:hover {
+  color: var(--glow-dark-2);
+  text-shadow: 0 0 8px var(--glow-dark-2), 0 0 20px var(--glow-dark-2);
+  transform: translateY(-3px);
+}
+
+.theme-toggle, .sound-toggle {
+  position: fixed;
+  z-index: 100;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: var(--text-dark);
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle {
+  top: 20px;
+  left: 20px;
+}
+
+.sound-toggle {
+  top: 20px;
+  left: 75px;
+  background: transparent;
+  border: none;
+  padding: 8px;
+}
+
+.theme-toggle:hover, .sound-toggle:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.45);
+  transform: rotate(180deg) scale(1.15);
+}
+
+#right-button {
+  position: fixed;
+  top: 5%;
+  right: 20px;
+  background: transparent;
+  border: none;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  z-index: 9999;
+}
+
+#right-button:hover { opacity: 0.7; }
+
+#experience-message {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 6px;
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  opacity: 1;
+  transition: opacity 1s ease;
+  z-index: 9999;
+}
+
+/* ========================================
+   MODE INDICATOR TOOLTIP
+   ======================================== */
+
+.lighthouse-container::after {
+  content: attr(data-mode);
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.lighthouse-container::after {
+  bottom: 50%;
+  left: 100%;
+  transform: translateY(50%);
+  margin-left: 10px;
+}
+
+
+/* ========================================
+   THEME MODES
+   ======================================== */
+
+/* Light Mode */
+.light-mode {
+  background: linear-gradient(to bottom, var(--sky-light-top) 60%, var(--sky-light-bottom) 100%);
+  color: var(--text-light);
+}
+
+.light-mode .sea { background: linear-gradient(to bottom, var(--sea-light-top) 0%, var(--sea-light-bottom) 100%); }
+.light-mode .shore { background: var(--shore-light); }
+.light-mode .name-header { color: var(--text-light); text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); animation: none; }
+.light-mode .nav a { color: var(--text-light); }
+.light-mode .nav a:hover { color: var(--sea-light-top); text-shadow: none; }
+.light-mode .theme-toggle { color: var(--text-light); background: rgba(0, 0, 0, 0.05); border-color: rgba(0, 0, 0, 0.1); }
+.light-mode .star { opacity: 0 !important; }
+.light-mode #sun { opacity: 1; transform: scale(1) translateY(0); }
+.light-mode #moon { opacity: 0; transform: scale(0.8) translateY(20px); }
+.light-mode .light-beam { opacity: 0; }
+.light-mode .lantern { animation: none; box-shadow: 0 0 10px 5px rgba(255, 221, 68, 0.3); }
+.light-mode .day-birds { opacity: 1; }
+.light-mode .night-birds { opacity: 0; }
+
+/* Dark Mode */
+.dark-mode #sun { opacity: 0; transform: scale(0.8) translateY(20px); }
+.dark-mode #moon { opacity: 1; transform: scale(1) translateY(0); }
+.dark-mode .light-beam { opacity: 1; }
+.dark-mode .lantern { animation: lanternPulse 3s infinite ease-in-out; }
+.dark-mode .day-birds { opacity: 0; }
+.dark-mode .night-birds { opacity: 1; }
+.dark-mode .name-header { animation: glow 3s ease-in-out infinite alternate; }
+
+/* ========================================
+   UTILITY & EFFECTS
+   ======================================== */
+
+.staggered-element {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.staggered-element.visible {
+  animation: elementEntrance 1s forwards;
+}
+
+.animated-element {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #000;
+  color: #fff;
+  padding: 8px;
+  z-index: 100;
+  transition: top 0.3s;
+}
+
+.skip-link:focus { top: 0; }
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 1200px) {
+  .name-header { font-size: clamp(1.8rem, 6vw, 4rem); }
+  .lighthouse-container { transform: scale(0.9); }
+}
+
+@media (max-width: 768px) {
+  .lighthouse-container { left: 20%; bottom: 35%; transform: scale(0.8); }
+  .name-header { top: 45%; width: 90%; }
+  .waves-container { height: 60px; }
+}
+
+@media (max-width: 480px) {
+  .lighthouse-container { left: 15%; bottom: 32%; transform: scale(0.7); }
+  .name-header { top: 40%; }
+  .waves-container { height: 50px; }
+  .light-beam { width: 350px; margin-left: -175px; }
+  .light-beam.beam-emergency { width: 280px; margin-left: -140px; }
+}
+
+@media (min-width: 2000px) {
+  .lighthouse-container { transform: scale(1.2); }
+}
+
+@media (orientation: portrait) {
+  .shore { height: 15%; }
+  .sea { height: 35%; }
+  .lighthouse-container { bottom: 45%; }
+}
+
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .light-beam { animation: none; transform: rotate(0); opacity: 0.7; }
+}
+
+/* ========================================
+   PERFORMANCE OPTIMIZATIONS
+   ======================================== */
+
+.parallax-container { perspective: 1px; height: 100vh; overflow: hidden; }
+.parallax-layer { position: absolute; top: 0; right: 0; bottom: 0; left: 0; }
+.parallax-layer-back { transform: translateZ(-1px) scale(2); }
+.parallax-layer-base { transform: translateZ(0); }
+.cinematic-transition { transition: all 1.2s cubic-bezier(.25, .1, .25, 1); }
+.film-grain { 
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 100%; 
+  opacity: 0.05; 
+  pointer-events: none; 
+  z-index: 1000; 
+}
+#welcome-message {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.3); /* transparent background */
+  color: white;
+  padding: 20px 40px; /* wider box */
+  border-radius: 8px;
+  font-family: sans-serif;
+  font-size: 16px;
+  opacity: 1;
+  transition: opacity 1s ease-out;
+  z-index: 9999;
+  max-width: 90%; /* responsive width */
+  text-align: center;
+}

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns#">
+<head>
+  <!-- Essential Meta Tags -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <!-- SEO Meta Tags -->
+  <title>Hari Krishna - Interactive Lighthouse Developer | Creative Web Portfolio</title>
+  <meta name="description" content="Hari Krishna's interactive lighthouse scene - A creative developer specializing in immersive web experiences, animations, and user interfaces. Click the lighthouse to cycle through modes.">
+  <meta name="keywords" content="Hari Krishna, web developer, creative developer, interactive design, lighthouse scene, portfolio, JavaScript, CSS animations">
+  <meta name="author" content="Hari Krishna">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://github.com/csharikrishna/lighthouse-interactive-scene">
+  
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Hari Krishna - Interactive Lighthouse Developer">
+  <meta property="og:description" content="Experience an immersive interactive lighthouse scene with day/night themes, dynamic animations, and responsive design.">
+  <meta property="og:url" content="https://github.com/csharikrishna/lighthouse-interactive-scene">
+  <meta property="og:site_name" content="Hari Krishna Portfolio">
+  <meta property="og:image" content="https://csharikrishna.github.io/lighthouse-interactive-scene/lighthouse-preview.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Interactive lighthouse scene with day and night modes">
+  
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Hari Krishna - Interactive Lighthouse Developer">
+  <meta name="twitter:description" content="Experience an immersive interactive lighthouse scene with day/night themes and dynamic animations.">
+  <meta name="twitter:image" content="https://yourusername.github.io/lighthouse-interactive-scene/lighthouse-preview.jpg">
+  <meta name="twitter:creator" content="@yourtwitterhandle">
+  
+  <!-- Favicons -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  
+  <!-- Performance Hints -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="//fonts.gstatic.com">
+  <link rel="preload" href="styles.css" as="style">
+  <link rel="preload" href="script.js" as="script">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+  
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Hari Krishna",
+    "jobTitle": "Creative Web Developer",
+    "description": "Interactive developer specializing in immersive web experiences and creative animations",
+    "url": "https://github.com/csharikrishna/lighthouse-interactive-scene",
+    "sameAs": [
+      "https://github.com/csharikrishna",
+      "https://www.linkedin.com/in/cs-harikrishna/",
+      "https://www.instagram.com/harikrishnacs__/"
+    ],
+    "knowsAbout": [
+      "JavaScript",
+      "CSS Animations",
+      "Interactive Design",
+      "Web Development",
+      "User Interface Design"
+    ]
+  }
+  </script>
+  
+  <!-- Theme Colors -->
+  <meta name="theme-color" content="#000010">
+  <meta name="msapplication-TileColor" content="#000010">
+</head>
+
+<body class="dark-mode" itemscope itemtype="https://schema.org/WebPage">
+  <!-- Accessibility Skip Link -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  
+  <!-- Film Grain Overlay -->
+  <div class="film-grain" role="presentation" aria-hidden="true"></div>
+  
+  <!-- Controls -->
+  <button 
+    class="theme-toggle cinematic-transition" 
+    id="themeToggle" 
+    aria-label="Switch to Light Mode"
+    title="Toggle day/night theme">
+    🌙
+  </button>
+  <button 
+    class="sound-toggle cinematic-transition" 
+    id="soundToggle" 
+    aria-label="Toggle Sound"
+    title="Toggle ocean sounds">
+    🔇
+  </button>
+
+  <main id="main-content" class="parallax-container" role="main">
+    <!-- Background Layer -->
+    <section class="parallax-layer parallax-layer-back" aria-label="Sky and celestial elements">
+      <div class="sky-elements">
+        <div 
+          id="sun" 
+          class="celestial-body animated-element" 
+          role="img" 
+          aria-label="Sun - appears in day mode">
+        </div>
+        <div 
+          id="moon" 
+          class="celestial-body animated-element" 
+          role="img" 
+          aria-label="Moon - appears in night mode">
+        </div>
+        <div id="starsContainer" aria-label="Twinkling stars"></div>
+        <div id="shootingStarsContainer" aria-label="Shooting stars"></div>
+      </div>
+    </section>
+    
+    <!-- Main Scene Layer -->
+    <section class="parallax-layer parallax-layer-base" aria-label="Main lighthouse scene">
+      <!-- Ocean Sound -->
+      <audio 
+        id="oceanSound" 
+        preload="metadata" 
+        loop
+        aria-label="Ocean wave sounds">
+        <source src="waves.mp3" type="audio/mpeg">
+        <source src="waves.ogg" type="audio/ogg">
+        Your browser does not support the audio element.
+      </audio>
+      
+      <!-- Experience Message -->
+      <div id="experience-message" role="status" aria-live="polite">
+        For a better experience, view this webpage on a desktop and enable fullscreen (f).
+      </div>
+      
+      <!-- Fullscreen Button -->
+      <button 
+        id="right-button" 
+        aria-label="Toggle fullscreen mode"
+        title="Enter fullscreen mode">
+        ⛶
+      </button>
+      
+      <!-- Birds Container -->
+      <div class="birds-container animated-element" role="presentation" aria-label="Flying birds">
+        <!-- Day Birds -->
+        <svg 
+          class="bird-flock day-birds" 
+          width="100%" 
+          height="100%" 
+          viewBox="0 0 800 300" 
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label="Day birds flying left to right">
+          <title>Day Birds</title>
+          <defs>
+            <g id="day-bird" fill="#333" transform="scale(0.5)">
+              <path d="M10,10 Q15,5 20,10 Q25,5 30,10 L20,15 Z" />
+            </g>
+          </defs>
+          <use href="#day-bird" x="50" y="50" />
+          <use href="#day-bird" x="65" y="55" />
+          <use href="#day-bird" x="80" y="48" />
+          <use href="#day-bird" x="95" y="52" />
+          <use href="#day-bird" x="110" y="58" />
+          <use href="#day-bird" x="125" y="51" />
+          <use href="#day-bird" x="140" y="56" />
+          <use href="#day-bird" x="155" y="49" />
+          <use href="#day-bird" x="170" y="54" />
+        </svg>
+
+        <!-- Night Birds -->
+        <svg 
+          class="bird-flock night-birds" 
+          width="100%" 
+          height="100%" 
+          viewBox="0 0 800 300" 
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label="Night birds flying right to left">
+          <title>Night Birds</title>
+          <defs>
+            <g id="night-bird" fill="#aaa" transform="scale(0.4)">
+              <path d="M10,10 Q15,5 20,10 Q25,5 30,10 L20,15 Z" />
+            </g>
+          </defs>
+          <use href="#night-bird" x="600" y="70" />
+          <use href="#night-bird" x="615" y="75" />
+          <use href="#night-bird" x="630" y="68" />
+          <use href="#night-bird" x="625" y="69" />
+          <use href="#night-bird" x="645" y="72" />
+          <use href="#night-bird" x="660" y="78" />
+        </svg>
+      </div>
+
+      <!-- Page Header -->
+
+
+      <!-- LIGHTHOUSE STRUCTURE - PRESERVED EXACTLY -->
+      <article 
+        class="lighthouse-container staggered-element" 
+        role="img" 
+        aria-label="Interactive lighthouse - click to cycle through three modes"
+        data-mode="Normal Mode">
+        
+        <div 
+          class="light-beam animated-element" 
+          id="lightBeam"
+          role="presentation"
+          aria-label="Lighthouse beam">
+        </div>
+        
+        <div 
+          class="lantern animated-element"
+          role="button"
+          tabindex="0"
+          aria-label="Lighthouse lantern - click to change light mode"
+          title="Click to cycle: Normal → Emergency → Off">
+        </div>
+        
+        <div class="lighthouse-roof" role="presentation"></div>
+        <div class="lighthouse-top" role="presentation"></div>
+        
+        <div 
+          class="lighthouse"
+          role="button"
+          tabindex="0"
+          aria-label="Lighthouse tower - click to change light mode"
+          title="Interactive lighthouse with three modes">
+          <div class="window window1" role="presentation" aria-label="Lighthouse window"></div>
+          <div class="window window2" role="presentation" aria-label="Lighthouse window"></div>
+        </div>
+        
+        <div class="lighthouse-base" role="presentation"></div>
+      </article>
+
+      <!-- Coastal Elements -->
+      <div class="shore" role="presentation" aria-label="Sandy shore"></div>
+      
+      <section class="waves-container" aria-label="Animated ocean waves">
+        <div class="wave wave1 animated-element" role="presentation"></div>
+        <div class="wave wave2 animated-element" role="presentation"></div>
+        <div class="wave wave3 animated-element" role="presentation"></div>
+      </section>
+
+      <div class="sea" role="presentation" aria-label="Ocean">
+        <div class="reflection" role="presentation" aria-label="Water reflection effect"></div>
+      </div>
+
+      <!-- Clouds Container -->
+      <div id="cloudsContainer" class="animated-element" role="presentation" aria-label="Drifting clouds"></div>
+    </section>
+  </main>
+
+  <!-- Hidden Screen Reader Content -->
+<div id="welcome-message">
+  Interactive lighthouse scene by Hari Krishna. Use the theme toggle for day/night, click the lighthouse for light modes, and toggle sound for ocean ambience.
+</div>
+
+  <!-- Scripts -->
+  <script src="script.js" defer></script>
+  
+  <!-- Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(registration => console.log('SW registered'))
+          .catch(error => console.log('SW registration failed'));
+      });
+    }
+  </script>
+</body>
+</html>
