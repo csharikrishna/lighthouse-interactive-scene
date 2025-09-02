@@ -1,11 +1,12 @@
-# Lighthouse Scene
+   # Lighthouse Scene
+
+![Lighthouse Scene Preview](https://github.com/csharikrishna/lighthouse-interactive-scene/blob/main/lighthouse-preview.jpg)
 
 A responsive, animated lighthouse scene featuring day/night theming, dynamic stars and shooting stars, drifting clouds, parallax, ambient sound, and a three-mode lighthouse beam (moving, emergency, off). Built with accessibility and performance in mind as a static web app using semantic HTML, modular CSS, and modern JavaScript APIs like IntersectionObserver and the Fullscreen API.
 
 ---
 
 ## Features
-
 - **Day/Night Theme**: Toggle between light (day) and dark (night) modes with animated sky, sun/moon transitions, and contextual elements (stars at night, clouds by day).
 - **Dynamic Stars**: Twinkling stars with varying intensity, pulsing variants, and randomized density based on screen size.
 - **Shooting Stars**: Randomized angle, duration, and delayed runs across the night sky.
@@ -21,17 +22,14 @@ A responsive, animated lighthouse scene featuring day/night theming, dynamic sta
 ---
 
 ## Project Structure
-
-index.html — Main HTML document with containers for stars, clouds, lighthouse, waves, birds, and controls.
-styles.css — Responsive styling, theme variables, animations, beam modes, accessibility rules.
-script.js — LighthouseScene controller: initializes scene, creates dynamic elements, handles events and animations.
-assets/ — Optional folder for audio (e.g., ocean-waves.mp3/.ogg).
-
+- `index.html` — Main HTML document with containers for stars, clouds, lighthouse, waves, birds, and controls.
+- `styles.css` — Responsive styling, theme variables, animations, beam modes, accessibility rules.
+- `script.js` — LighthouseScene controller: initializes scene, creates dynamic elements, handles events and animations.
+- `assets/` — Optional folder for audio (e.g., ocean-waves.mp3/.ogg).
 
 ---
 
 ## Getting Started
-
 1. Clone or download the project files into a local folder.
 2. Open `index.html` in a modern browser to run the scene locally.
 3. (Optional) Serve via a local static server if testing cross-origin audio or stricter CSP setups.
@@ -39,7 +37,6 @@ assets/ — Optional folder for audio (e.g., ocean-waves.mp3/.ogg).
 ---
 
 ## Usage
-
 - **Theme**: Click the theme toggle in the top-left to switch between day and night.
 - **Sound**: Click the sound toggle to play/pause ocean audio (initial state is muted).
 - **Lighthouse Modes**: Click the lighthouse body or lantern to cycle through moving → emergency → off.
@@ -49,7 +46,6 @@ assets/ — Optional folder for audio (e.g., ocean-waves.mp3/.ogg).
 ---
 
 ## Controls and UI
-
 - `#themeToggle` — Button to switch day/night theme.
 - `#soundToggle` — Button to toggle ocean audio (`#oceanSound`).
 - Fullscreen — Button (`#right-button`) or `F` key toggles immersive mode.
@@ -58,7 +54,6 @@ assets/ — Optional folder for audio (e.g., ocean-waves.mp3/.ogg).
 ---
 
 ## Architecture
-
 - **Controller**: `LighthouseScene` class initializes, caches DOM nodes, binds events, and manages stars, shooting stars, clouds, and birds.
 - **Animations**: `requestAnimationFrame` drives beam rotation; CSS keyframes handle twinkle, shooting stars, waves, and pulses.
 - **Observers**: IntersectionObserver handles staggered reveal-on-scroll efficiently.
@@ -67,7 +62,6 @@ assets/ — Optional folder for audio (e.g., ocean-waves.mp3/.ogg).
 ---
 
 ## Configuration
-
 - **JavaScript CONFIG**: Adjust counts, sizes, durations, delays, and breakpoints for stars, shooting stars, clouds, and birds.
 - **Lighthouse Modes**: Managed via `lightModes` array and `updateLightMode()`.
 - **CSS Variables**: Adjust theme colors, timing, and glow intensities via `:root` in `styles.css`.
@@ -76,7 +70,6 @@ assets/ — Optional folder for audio (e.g., ocean-waves.mp3/.ogg).
 ---
 
 ## Accessibility
-
 - Honors `prefers-reduced-motion` to minimize animations.
 - Focus visibility for keyboard and screen-reader users.
 - Skip link pattern included for easier navigation.
@@ -84,7 +77,6 @@ assets/ — Optional folder for audio (e.g., ocean-waves.mp3/.ogg).
 ---
 
 ## Performance
-
 - Uses `will-change` and `backface-visibility` for smooth animations.
 - `requestAnimationFrame` throttles dynamic updates; resize events are debounced.
 - IntersectionObserver delays entrance effects until elements approach viewport.
@@ -92,7 +84,6 @@ assets/ — Optional folder for audio (e.g., ocean-waves.mp3/.ogg).
 ---
 
 ## Fullscreen Notes
-
 - Uses `requestFullscreen`/`exitFullscreen` with fallbacks.
 - `F` key and optional UI button toggle fullscreen.
 - Listens to `fullscreenchange` events to update UI state.
@@ -100,8 +91,7 @@ assets/ — Optional folder for audio (e.g., ocean-waves.mp3/.ogg).
 ---
 
 ## Troubleshooting
-
-- **Audio doesn’t play**: Click the sound button; browsers require a user gesture.
+- **Audio doesn't play**: Click the sound button; browsers require a user gesture.
 - **Fullscreen blocked**: Ensure browser supports fullscreen and trigger via UI or `F` key.
 - **Performance issues**: Enable reduced motion or reduce particle counts in CONFIG.
 - **Mode cycling unresponsive**: Ensure clicks target lighthouse/lantern; avoid overriding beam classes in CSS.
@@ -109,7 +99,6 @@ assets/ — Optional folder for audio (e.g., ocean-waves.mp3/.ogg).
 ---
 
 ## Contributing
-
 - Adjust visuals via CSS custom properties and keyframes.
 - Tweak behavior via CONFIG and `LighthouseScene` methods in `script.js`.
 - Maintain accessibility and performance when increasing particle counts or animation durations.
@@ -117,19 +106,16 @@ assets/ — Optional folder for audio (e.g., ocean-waves.mp3/.ogg).
 ---
 
 ## License
-
-- Recommended: MIT License (add a `LICENSE` file to the project).
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
 ## Acknowledgments
-
 - Inspired by professional README templates and open-source best practices.
 
 ---
 
 ## Quick Start (TL;DR)
-
 1. Open `index.html` in a modern browser.
 2. Toggle theme, sound, fullscreen, and click the lighthouse to cycle beam modes.
 3. Adjust CONFIG to optimize visuals and performance for your device.
